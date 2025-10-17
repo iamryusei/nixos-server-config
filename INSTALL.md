@@ -58,8 +58,7 @@ Identify the disk where to install the system by using `fdisk -l` and `lsblk`.
 1. Retrieve the disk configuration to a temporary location, calling it "disko.nix" (we will use it later):
 
 // TODO SOSTITUIRE CON IL DISKO.NIX DI QUESTO PROGETTO  
-> $ cd /tmp \
-> $ curl https://raw.githubusercontent.com/iamryusei/nixos-config/refs/heads/master/disko.nix
+> $ curl https://raw.githubusercontent.com/iamryusei/nixos-config/refs/heads/master/disko.nix - /tmp/disko.nix
 
 NANO and change /dev/sdx to target disk
 
@@ -77,13 +76,18 @@ With the disk partitioned, we are ready to follow the usual NixOS installation p
 
 Before I even mount it, I create a snapshot while it is totally blank:
 
-> $  zfs snapshot zroot/root@blank
-
+> $ mkdir /mnt/etc/nixos \
+> $ mkdir /mnt/persistence/etc/nixos \
+> $ mount --bind /mnt/persistence/etc/nixos /mnt/etc/nixos
 > $ nixos-generate-config --no-filesystems --root /mnt \
-> $ mv /tmp/disko.nix /mnt/etc/nixos \
+
+now /mnt/etc/nixos should contain configuration.nix and hardware-configuration.nix
+
 > $ cd /mnt/etc/nixos \
+> $ mv /tmp/disko.nix /mnt/etc/nixos \
 > $ curl https://raw.githubusercontent.com/IamRyusei/nixos-config/refs/heads/master/flake.nix -o flake.nix \
 > $ curl https://raw.githubusercontent.com/IamRyusei/nixos-config/refs/heads/master/configuration.nix -o configuration.nix \
+> $ curl https://raw.githubusercontent.com/IamRyusei/nixos-config/refs/heads/master/impermanence.nix -o configuration.nix \
 
 set networking.hostId to value of -> head -c 8 /etc/machine-id
 

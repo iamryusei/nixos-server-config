@@ -13,7 +13,7 @@
   boot.loader.grub.enable = true;
   boot.loader.grub.efiSupport = true;
   boot.loader.grub.efiInstallAsRemovable = true;
-  boot.initrd.postDeviceCommands = lib.mkAfter ''
+  boot.initrd.postResumeCommands = lib.mkAfter ''
     zfs rollback -r zpool/root@blank
   '';
 
