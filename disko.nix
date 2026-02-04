@@ -13,7 +13,7 @@
               size = "1M";
               type = "EF02";
             };
-            # ESP (EFI System Partition).
+            # ESP (EFI System Partition) -- Only for UEFI!
             ESP = {
               start = "1M";
               size = "1G";
@@ -41,7 +41,6 @@
       zpool = {
         type = "zpool";
         postCreateHook = "zfs list -t snapshot -H -o name | grep -E '^zpool/root@blank$' || zfs snapshot zpool/root@blank";
-        #preMountHook = "zfs rollback -r zpool/root@blank";
         datasets = {
           root = {
             type = "zfs_fs";

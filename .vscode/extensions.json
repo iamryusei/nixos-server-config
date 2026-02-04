@@ -1,0 +1,7 @@
+{
+    "recommendations": [
+        "bbenoist.nix",
+        "gruntfuggly.todo-tree",
+        "mhutchie.git-graph"
+    ]
+}

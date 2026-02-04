@@ -9,10 +9,16 @@
   # System
   system.stateVersion = "24.11"; # DO NOT MODIFY! - Version of NixOS initial installation.
 
+  # Virtualization (ONLY FOR QEMU / PROXMOX)
+  # See: https://wiki.nixos.org/wiki/Category:Virtualization
+  # virtualisation.libvirtd.enable = true;
+  # services.qemuGuest.enable =true;
+  # services.spice-vdagentd.enable = true;
+
   # Bootloader
   boot.loader.grub.enable = true;
-  boot.loader.grub.efiSupport = true;
-  boot.loader.grub.efiInstallAsRemovable = true;
+  boot.loader.grub.efiSupport = true; # for legacy BIOS use false
+  boot.loader.grub.efiInstallAsRemovable = true; # for legacy BIOS use false
   boot.initrd.postResumeCommands = lib.mkAfter ''
     zfs rollback -r zpool/root@blank
   '';

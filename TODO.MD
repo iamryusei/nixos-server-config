@@ -1,0 +1,8 @@
+- [ ] renominare repository in nixos-server-config
+- [ ] Migliorare readme di installazione con git
+- [ ] aggiungere sezione su manutenzione tramite git + comandi utili
+- [ ] aggiungere home-manager
+- [ ] aggiungere gestione dei secret
+- [ ] capire come gestire la cartella home 
+- [ ] ssh login tramite ssh key
+- [ ] docker apps /home/docker/<category>/ and /home/docker and how to download them
