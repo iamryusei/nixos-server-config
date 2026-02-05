@@ -30,7 +30,7 @@ TODO:
 Switch keyboard layout to your preferred one (in my case it's italian)
 
 ```shell
-$ sudo loadkeys it
+sudo loadkeys it
 ```
 
 <!--
@@ -88,7 +88,7 @@ Identify the disk where to install the system by using `fdisk -l` and `lsblk`.
 Retrieve the disk configuration to a temporary location, calling it "disko.nix" (we will use it later):
 
 ```shell
-curl -o /home/nixos/disko.nix https://raw.githubusercontent.com/iamryusei/nixos-server-config/refs/heads/master/nixos/disko.nix
+curl -o /home/nixos/disko.nix https://raw.githubusercontent.com/iamryusei/nixos-server-config/refs/heads/master/disko.nix
 ```
 
 Then edit the disko config locally and change /dev/sdx to target disk (usually /dev/sda)
@@ -115,9 +115,9 @@ mkdir -p /mnt/etc/nixos
 cd /mnt/etc/nixos
 nixos-generate-config --no-filesystems --root /mnt
 mv /home/nixos/disko.nix /mnt/etc/nixos
-curl -o flake.nix https://raw.githubusercontent.com/iamryusei/nixos-server-config/refs/heads/master/nixos/flake.nix
-curl -o configuration.nix https://raw.githubusercontent.com/iamryusei/nixos-server-config/refs/heads/master/nixos/configuration.nix
-curl -o impermanence.nix https://raw.githubusercontent.com/iamryusei/nixos-server-config/refs/heads/master/nixos/impermanence.nix
+curl -o flake.nix https://raw.githubusercontent.com/iamryusei/nixos-server-config/refs/heads/master/flake.nix
+curl -o configuration.nix https://raw.githubusercontent.com/iamryusei/nixos-server-config/refs/heads/master/configuration.nix
+curl -o impermanence.nix https://raw.githubusercontent.com/iamryusei/nixos-server-config/refs/heads/master/impermanence.nix
 ```
 
 <!-- TODO: o addirittura git clone ??? -->

@@ -3,7 +3,7 @@
   imports = [
     ./hardware-configuration.nix
     ./disko.nix
-    ./impermanence.nix
+  #  ./impermanence.nix
   ];
 
   # System
