@@ -1,6 +1,6 @@
-{ config, lib, pkgs, ... }: 
+{ config, lib, pkgs, ... }:
 {
-  imports = [ 
+  imports = [
     ./hardware-configuration.nix
     ./disko.nix
     ./impermanence.nix
@@ -24,15 +24,15 @@
   '';
 
   fileSystems."/persistence".neededForBoot = true;
-  
+
   # Nix Settings
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   # Timezone
   time.timeZone = "Europe/Rome";
   time.hardwareClockInLocalTime = false;
-  
+
   # Networking
-  networking.hostId = "$hostId";
+  networking.hostId = "${hostId}";
   networking.hostName = "nixos-server";
 
   # Logind
@@ -47,7 +47,7 @@
     keyMap = "it";
     font = "Lat2-Terminus16";
     colors = [];
-    packages = [];  
+    packages = [];
   };
 
 
@@ -64,7 +64,7 @@
 
   # Packages
   environment.systemPackages = with pkgs; [
-    gh # GitHub CLI tool 
+    gh # GitHub CLI tool
     git # Distributed version control system
     nano # Small, user-friendly console text editor
     neofetch
@@ -86,11 +86,11 @@
     allowNoPasswordLogin = false;
 #    defaultUserHome = "/home";
 #    defaultUserShell = pkgs.bash;
-    
+
     groups = {
       # todo
     };
-    
+
     users = {
       "root" = {
         uid = 0;

@@ -1,111 +1,38 @@
-# NixOS Installation Guide
+# IamRyusei's NixOS Server Config
 
-This guide describes the procedure to install and setup a reproducible NixOS impermanent setup.
+This repository contains the **Infrastructure-as-Code** files that are needed to configure a reproducible **NixOS**
+installation with an impermanent setup, intended to be used as a server for running containerized applications and
+services in an homelab infrastructure.
 
-In particular, this guide refers to NixOS 24.11 (Vicuna). It is meant to be used as a server
-that contains docker containers. It can be installed both on bare-metal and as a VM (for example proxmox).
+<!-- todo: add an image here -->
 
-## Preparation
+## 📖 Documentation
 
->>>> see https://www.youtube.com/watch?v=KRrwJkb1xpk&t=270s <<<<
+Following is a list of pages that contains detailed documentation for each aspect of this repository:
 
-1. Download the minimal ISO image for NixOS NixOS 24.11 (Vicuna) from the [official link](https://releases.nixos.org/nixos/24.11/nixos-24.11.719113.50ab793786d9/nixos-minimal-24.11.719113.50ab793786d9-x86_64-linux.iso).
+- [NixOS Installation](./docs/INSTALL.md)
+- TODO
 
-2. Create a bootable USB drive that will be used for installation Installation with minimal installer.
+<!-- TODO: AI Draft >
 
-3. Boot into the nixos minimal installer.
+Key Features
 
-## Proxmox Preparation
+Impermanent root filesystem: Ensures a clean, reproducible state on every boot
+Declarative configuration: All system settings defined in version-controllable files
+Docker-ready: Pre-configured for containerized workloads
+Flexible deployment: Works on bare-metal servers and virtual machines
 
-TODO: 
+Prerequisites
+System Requirements
+Minimum:
 
-## Installation
+2 GB RAM (4 GB recommended)
+20 GB storage (depends on container workloads)
+x86_64 or ARM64 processor
+Network connectivity for package downloads
 
-### 1. (Optional) Switch keyboard layout to your preferred one (in my case it's Italian)
+-->
 
-> $ sudo loadkeys it
+## TODO
 
-### 2. Open a shell as root and navigate to the `/root` directory
-
-> $ sudo -s \
-> $ cd /
-
-### 3. (Optional) WIFI
-> $ ifconfig # to check the NIC \
-> $ wpa_passphrase "\$YOUR_SSID" "\$YOUR_PASSWORD" > /tmp/wpa_supplicant.conf \
-> $ wpa_supplicant -B -i interface_name -c /tmp/wpa_supplicant.conf
-
-### 4. SSH
-```terminal
-
-$ passwd nixos
-$ ip addr
-
-## Install Disko
-
-Source - https://nixos.asia/en/nixos-install-disko
-
-Identify wether the system is UEFI or BIOS (legacy) by checking if `/sys/firmware/efi` exists means system uses UEFI.
-
-Identify the disk where to install the system by using `fdisk -l` and `lsblk`.
-
-1. Retrieve the disk configuration to a temporary location, calling it "disko.nix" (we will use it later):
-
-// TODO SOSTITUIRE CON IL DISKO.NIX DI QUESTO PROGETTO  
-> $ curl -o /tmp/disko.nix https://raw.githubusercontent.com/iamryusei/nixos-server-config/refs/heads/master/disko.nix
-
-nano /tmp/disko.nix and change /dev/sdx to target disk
-
-> $ nix --experimental-features "nix-command flakes" run github:nix-community/disko/latest -- --mode destroy,format,mount /tmp/disko.nix
-
-check if everything is ok with `df -h` `zfs list` `zpool list` `zfs list -t snapshot` should see zroot/root mounted on /mnt, and other ...
-
-// For BIOS/MBR:
-// create a /dev/sda/sd1 partition as 1GB 
-// swap 16 GB
-// then the rest main partition
-
-Generate initial NixOS configuration 
-With the disk partitioned, we are ready to follow the usual NixOS installation process. The first step is to generate the initial NixOS configuration under /mnt.
-
-> $ mkdir -p /mnt/etc/nixos \
-> $ mkdir -p /mnt/persistence/etc/nixos \
-> $ mount --bind /mnt/persistence/etc/nixos /mnt/etc/nixos
-> $ nixos-generate-config --no-filesystems --root /mnt \
-
-now /mnt/etc/nixos should contain configuration.nix and hardware-configuration.nix
-
-> $ cd /mnt/etc/nixos \
-> $ mv /tmp/disko.nix /mnt/etc/nixos \
-> $ curl -o flake.nix https://raw.githubusercontent.com/iamryusei/nixos-server-config/refs/heads/master/flake.nix \
-> $ curl -o configuration.nix https://raw.githubusercontent.com/iamryusei/nixos-server-config/refs/heads/master/configuration.nix \
-> $ curl -o impermanence.nix https://raw.githubusercontent.com/iamryusei/nixos-server-config/refs/heads/master/impermanence.nix \
-
-set networking.hostId to value of -> head -c 8 /etc/machine-id
-
-1. Let’s check that our final configuration is correct by using nix repl. In particular, we test the fileSystems set by disko:
-
-> $ cd /mnt/etc/nixos \
-> $ nix --experimental-features "nix-command flakes" flake lock
-
-// # Start repl
-> $ nix --experimental-features "nix-command flakes" repl \
-> $ :lf . \
-> $ outputs.nixosConfigurations.nixos.config.fileSystems \
-> $ outputs.nixosConfigurations.nixos.config.fileSystems."/" \ 
-> $ outputs.nixosConfigurations.nixos.config.fileSystems."/boot" \
-> $ outputs.nixosConfigurations.nixos.config.fileSystems."/nix" \
-> $ outputs.nixosConfigurations.nixos.config.fileSystems."/persistence" \
-> $ :q
-
-> $ cd / \
-> $ nixos-install --root /mnt --flake '/mnt/etc/nixos#nixos'
-> 
-# NOTE: You will be prompted to set the root password at this point.
-
-> $ shutdown now
-
-remove drive
-
-reboot
-
+TODO
